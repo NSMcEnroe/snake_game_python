@@ -31,6 +31,9 @@ while game_is_on:
     if player.head.distance(food) < 15:
         food.refresh()
         scoreboard.gain_points()
-
+# Detect collision with wall
+    if player.head.xcor() > 280 or player.head.xcor() < -280 or player.head.ycor() > 280 or player.head.ycor() < -280:
+        game_is_on = False
+        scoreboard.game_over()
 
 screen.exitonclick()
