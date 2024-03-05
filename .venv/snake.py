@@ -1,5 +1,5 @@
 from turtle import Turtle
-
+starting_positions = [(0,0), (-20,0), (-40, 0)]
 class Snake:
     def __init__(self):
         self.segments = []
@@ -7,12 +7,8 @@ class Snake:
         self.head = self.segments[0]
 
     def start(self):
-        for i in range(3):
-            snake = Turtle("square")
-            snake.color("white")
-            snake.penup()
-            snake.setx(-20 * i)
-            self.segments.append(snake)
+        for position in starting_positions:
+            self.add_segment(position)
 
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -20,6 +16,15 @@ class Snake:
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
         self.segments[0].forward(20)
+
+    def add_segment(self, position):
+        snake = Turtle("square")
+        snake.color("white")
+        snake.penup()
+        snake.goto(position)
+        self.segments.append(snake)
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
     def up(self):
         if self.head.heading() != 270:

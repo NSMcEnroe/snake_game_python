@@ -30,10 +30,18 @@ while game_is_on:
 #Detect collision with food.
     if player.head.distance(food) < 15:
         food.refresh()
+        player.extend()
         scoreboard.gain_points()
 # Detect collision with wall
     if player.head.xcor() > 280 or player.head.xcor() < -280 or player.head.ycor() > 280 or player.head.ycor() < -280:
         game_is_on = False
         scoreboard.game_over()
+# Detect collision with tail
+    for segment in player.segments:
+        if segment == player.head:
+            pass
+        elif player.head.distance(segment) < 10:
+            game_is_on = False
+            scoreboard.game_over()
 
 screen.exitonclick()
